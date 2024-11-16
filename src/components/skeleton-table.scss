@@ -1,0 +1,35 @@
+    .skeleton-block {
+      background-color: var(--gray-200);
+      height: 1rem;
+      border-radius: 4px;
+      width: 100px;
+
+			animation: fade 1.5s infinite ease-in-out; 
+
+      &--header {
+        height: 1.5rem;
+				width: 100%;
+        background-color: var(--gray-300);
+      }
+  
+      &--text {
+        height: 1rem;
+        width: 100%;
+        width: 250px;
+      }
+  
+      &--circle {
+				margin: auto;
+			}
+    }
+
+		@keyframes fade {
+			0%, 100% {
+				opacity: 1;
+			}
+			50% {
+				opacity: 0.5;
+			}
+		}
+
+  

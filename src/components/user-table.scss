@@ -1,0 +1,76 @@
+.user-table-wrapper {
+  overflow-x: auto;
+  margin: 20px 0;
+}
+
+.user-table {
+  border-collapse: collapse;
+}
+
+.user-table__header {
+  width: 100%;
+  // TODO: sticky not working
+  // position: sticky;
+  // top: 0;
+  // z-index: 2;
+
+  &-cell {
+    font-weight: bold;
+    text-align: left;
+    padding: 1rem;
+    border-bottom: 1px solid var(--gray-200);
+    background-color: var(--gray-100);
+
+    &:not(:first-child) {
+      border-left: 1px solid var(--gray-200);
+    }
+  }
+}
+
+.user-table__row {
+  background-color: var(--gray-50);
+
+  &:hover {
+    background-color: var(--gray-100);
+    border-bottom: 1px solid var(--gray-300);
+  }
+}
+
+.user-table__cell {
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 400px;
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid var(--gray-200);
+
+  &:not(:first-child) {
+    border-left: 1px solid var(--gray-200);
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.5rem;
+  }
+
+  &.image {
+    padding: 0.25rem  1.5rem;
+    text-align: center;
+
+    @media (max-width: 768px) {
+      padding: 0.25rem 0.5rem;
+    }
+  }
+
+  >.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+    @media (max-width:  768px) {
+        width: 40px;
+        height: 40px;
+    }
+  }
+}

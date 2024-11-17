@@ -1,14 +1,14 @@
 import "./skeleton-table.scss";
-import "./user-table.scss";
+import "./table.scss";
 
 export const SkeletonTable = ({ rows = 10, columns = 4 }) => {
   return (
-    <div className="user-table-wrapper">
-      <table className="user-table">
+    <div className="table-wrapper">
+      <table className="table">
         <thead>
           <tr>
             {Array.from({ length: columns }).map((_, index) => (
-              <th key={index} className="user-table__header-cell">
+              <th key={index} className="table__header-cell">
                 <div className="skeleton-block skeleton-block--header"></div>
               </th>
             ))}
@@ -16,9 +16,9 @@ export const SkeletonTable = ({ rows = 10, columns = 4 }) => {
         </thead>
         <tbody>
           {Array.from({ length: rows }).map((_, rowIndex) => (
-            <tr key={rowIndex} className="user-table__row">
+            <tr key={rowIndex} className="table__row">
               {Array.from({ length: columns }).map((_, colIndex) => (
-                <td key={colIndex} className="user-table__cell">
+                <td key={colIndex} className="table__cell">
                   <div
                     className={`skeleton-block ${
                       colIndex === 0

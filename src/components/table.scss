@@ -1,13 +1,13 @@
-.user-table-wrapper {
+.table-wrapper {
   overflow-x: auto;
   margin: 20px 0;
 }
 
-.user-table {
+.table {
   border-collapse: collapse;
 }
 
-.user-table__header {
+.table__header {
   width: 100%;
   // TODO: sticky not working
   // position: sticky;
@@ -27,16 +27,15 @@
   }
 }
 
-.user-table__row {
+.table__row {
   background-color: var(--gray-50);
 
   &:hover {
-    background-color: var(--gray-100);
-    border-bottom: 1px solid var(--gray-300);
+    background-color: var(--green-50);
   }
 }
 
-.user-table__cell {
+.table__cell {
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
@@ -69,8 +68,8 @@
     border-radius: 50%;
 
     @media (max-width:  768px) {
-        width: 40px;
-        height: 40px;
+      width: 40px;
+      height: 40px;
     }
   }
 }

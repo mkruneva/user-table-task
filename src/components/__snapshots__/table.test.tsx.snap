@@ -1,0 +1,166 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table should match snapshot 1`] = `
+<div>
+  <div
+    class="table-wrapper"
+  >
+    <table
+      class="table"
+    >
+      <thead
+        class="table__header"
+      >
+        <tr
+          class="table__header-row"
+        >
+          <th
+            class="table__header-cell"
+          >
+            Name
+          </th>
+          <th
+            class="table__header-cell"
+          >
+            Image
+          </th>
+          <th
+            class="table__header-cell"
+          >
+            Email
+          </th>
+          <th
+            class="table__header-cell"
+          >
+            Phone
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="table__body"
+      >
+        <tr
+          class="table__row"
+        >
+          <td
+            class="table__cell name"
+          >
+            <strong>
+              Emily Johnson
+            </strong>
+          </td>
+          <td
+            class="table__cell image"
+          >
+            <img
+              alt="Emily Johnson's avatar"
+              class="avatar"
+              src="https://dummyjson.com/icon/emilys/128"
+            />
+          </td>
+          <td
+            class="table__cell email"
+          >
+            emily.johnson@x.dummyjson.com
+          </td>
+          <td
+            class="table__cell phone"
+          >
+            +81 965-431-3024
+          </td>
+        </tr>
+        <tr
+          class="table__row"
+        >
+          <td
+            class="table__cell name"
+          >
+            <strong>
+              Michael Williams
+            </strong>
+          </td>
+          <td
+            class="table__cell image"
+          >
+            <img
+              alt="Michael Williams's avatar"
+              class="avatar"
+              src="https://dummyjson.com/icon/michaelw/128"
+            />
+          </td>
+          <td
+            class="table__cell email"
+          >
+            michael.williams@x.dummyjson.com
+          </td>
+          <td
+            class="table__cell phone"
+          >
+            +49 258-627-6644
+          </td>
+        </tr>
+        <tr
+          class="table__row"
+        >
+          <td
+            class="table__cell name"
+          >
+            <strong>
+              Sophia Brown
+            </strong>
+          </td>
+          <td
+            class="table__cell image"
+          >
+            <img
+              alt="Sophia Brown's avatar"
+              class="avatar"
+              src="https://dummyjson.com/icon/sophiab/128"
+            />
+          </td>
+          <td
+            class="table__cell email"
+          >
+            sophia.brown@x.dummyjson.com
+          </td>
+          <td
+            class="table__cell phone"
+          >
+            +81 210-652-2785
+          </td>
+        </tr>
+        <tr
+          class="table__row"
+        >
+          <td
+            class="table__cell name"
+          >
+            <strong>
+              James Davis
+            </strong>
+          </td>
+          <td
+            class="table__cell image"
+          >
+            <img
+              alt="James Davis's avatar"
+              class="avatar"
+              src="https://dummyjson.com/icon/jamesd/128"
+            />
+          </td>
+          <td
+            class="table__cell email"
+          >
+            james.davis@x.dummyjson.com
+          </td>
+          <td
+            class="table__cell phone"
+          >
+            +49 614-958-9364
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;

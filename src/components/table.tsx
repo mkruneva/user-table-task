@@ -57,9 +57,11 @@ export const Table = <T extends MinTableItem, K extends keyof T>({
 }: TableProps<T, K>) => {
   if (isLoading) return <SkeletonTable rows={10} columns={4} />;
 
+  // TODO: better styling for error states
   if (isErrored) return <div>Something went wrong</div>;
 
-  if (!data?.length) return <div>No users found</div>;
+  if (!isLoading && !isErrored && !data?.length)
+    return <div>No users found</div>;
 
   return (
     <div className="table-wrapper">

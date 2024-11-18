@@ -1,7 +1,7 @@
 import { screen, render } from "@testing-library/react";
 
 import { Table, type TableColumn } from "./table";
-import { type User } from "../components/users";
+import { type User } from "../contexts/user-context";
 
 const mockData: User[] = [
   {

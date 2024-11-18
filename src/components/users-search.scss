@@ -1,0 +1,35 @@
+.search-box {
+    max-width: 400px;
+    padding-top: 1rem;
+
+    &__input-container {
+        position: relative;
+    }
+
+    &__input {
+        padding-right: 2.5rem;
+    }
+
+    &__button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        padding: 0.5rem;
+        background-color: transparent;
+        color: var(--gray-500);
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__input {
+        padding: 0.5rem;
+        border: 1px solid var(--gray-300);
+        border-radius: 0.25rem;
+        font-size: 1rem;
+        width: 100%;
+    }
+}

@@ -45,9 +45,10 @@ exports[`Table should match snapshot 1`] = `
           <td
             class="table__cell name"
           >
-            <strong>
+            <span>
               Emily Johnson
-            </strong>
+               
+            </span>
           </td>
           <td
             class="table__cell image"
@@ -61,12 +62,18 @@ exports[`Table should match snapshot 1`] = `
           <td
             class="table__cell email"
           >
-            emily.johnson@x.dummyjson.com
+            <span>
+              emily.johnson@x.dummyjson.com
+               
+            </span>
           </td>
           <td
             class="table__cell phone"
           >
-            +81 965-431-3024
+            <span>
+              +81 965-431-3024
+               
+            </span>
           </td>
         </tr>
         <tr
@@ -75,9 +82,10 @@ exports[`Table should match snapshot 1`] = `
           <td
             class="table__cell name"
           >
-            <strong>
+            <span>
               Michael Williams
-            </strong>
+               
+            </span>
           </td>
           <td
             class="table__cell image"
@@ -91,12 +99,18 @@ exports[`Table should match snapshot 1`] = `
           <td
             class="table__cell email"
           >
-            michael.williams@x.dummyjson.com
+            <span>
+              michael.williams@x.dummyjson.com
+               
+            </span>
           </td>
           <td
             class="table__cell phone"
           >
-            +49 258-627-6644
+            <span>
+              +49 258-627-6644
+               
+            </span>
           </td>
         </tr>
         <tr
@@ -105,9 +119,10 @@ exports[`Table should match snapshot 1`] = `
           <td
             class="table__cell name"
           >
-            <strong>
+            <span>
               Sophia Brown
-            </strong>
+               
+            </span>
           </td>
           <td
             class="table__cell image"
@@ -121,12 +136,18 @@ exports[`Table should match snapshot 1`] = `
           <td
             class="table__cell email"
           >
-            sophia.brown@x.dummyjson.com
+            <span>
+              sophia.brown@x.dummyjson.com
+               
+            </span>
           </td>
           <td
             class="table__cell phone"
           >
-            +81 210-652-2785
+            <span>
+              +81 210-652-2785
+               
+            </span>
           </td>
         </tr>
         <tr
@@ -135,9 +156,10 @@ exports[`Table should match snapshot 1`] = `
           <td
             class="table__cell name"
           >
-            <strong>
+            <span>
               James Davis
-            </strong>
+               
+            </span>
           </td>
           <td
             class="table__cell image"
@@ -151,12 +173,18 @@ exports[`Table should match snapshot 1`] = `
           <td
             class="table__cell email"
           >
-            james.davis@x.dummyjson.com
+            <span>
+              james.davis@x.dummyjson.com
+               
+            </span>
           </td>
           <td
             class="table__cell phone"
           >
-            +49 614-958-9364
+            <span>
+              +49 614-958-9364
+               
+            </span>
           </td>
         </tr>
       </tbody>

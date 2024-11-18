@@ -39,6 +39,9 @@ const mockColumns: TableColumn<User, keyof User>[] = [
   {
     label: "Image",
     accessor: "image",
+    renderCellContent: ({ image, name }: User) => {
+      return <img className="avatar" src={image} alt={`${name}'s avatar`} />;
+    },
   },
   { label: "Email", accessor: "email" },
   { label: "Phone", accessor: "phone" },
@@ -66,6 +69,8 @@ describe("Table", () => {
     const imageColumn = screen.getByText(/image/i);
     expect(imageColumn).toBeInTheDocument();
   });
+
+  // TODO: add img test with scr and alt
 
   it("should match snapshot", () => {
     const { container } = render(

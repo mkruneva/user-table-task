@@ -1,11 +1,11 @@
-import { UserProvider } from "./user-context";
-import { UserTable } from "./components/user-table";
-import { UserSearch } from "./components/user-search";
+import { UserProvider } from './user-context'
+import { UserTable } from './components/user-table'
+import { UserSearch } from './components/user-search'
 
-import "./users-page.scss";
+import './users-page.scss'
 
 interface UsersProps {
-  navigate: (path: string) => void;
+  navigate: (path: string) => void
 }
 
 export const UsersPage = ({ navigate }: UsersProps) => {
@@ -17,7 +17,7 @@ export const UsersPage = ({ navigate }: UsersProps) => {
           <UserSearch />
           <button
             className="button-link"
-            onClick={() => navigate("/users/create")}
+            onClick={() => navigate('/users/create')}
           >
             Create user
           </button>
@@ -25,5 +25,5 @@ export const UsersPage = ({ navigate }: UsersProps) => {
         <UserTable />
       </UserProvider>
     </div>
-  );
-};
+  )
+}

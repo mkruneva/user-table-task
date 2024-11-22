@@ -4,14 +4,17 @@
   margin: 1rem 0;
 }
 
-.create-user-form {
+.create-user-form__input-container {
   margin-bottom: 1rem;
   width: 24rem;
+
 
   @media (max-width: 768px) {
     width: 100%;
   }
+}
 
+.create-user-form {
   &__label {
     display: block;
     color: var(--gray-500);
@@ -59,7 +62,7 @@
   padding: 0.5rem 1rem;
   border-radius: var(--md-border-radius);
   transition: background-color 0.2s ease;
-  font-size: 1rem;
+  cursor: pointer;
 
   &:hover {
     background-color: var(--green-500);

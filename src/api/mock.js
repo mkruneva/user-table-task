@@ -19,10 +19,31 @@ mock.onGet('/users').reply((config) => {
 
 mock.onPost('/users').reply((config) => {
   const newUser = JSON.parse(config.data)
+  const validationResponse = validateUser(newUser)
+
+  if (validationResponse) {
+    return validationResponse
+  }
+
   newUser.id = users.length + 1
   users.unshift(newUser)
 
   return [201, { updatedUsers: users }]
 })
+
+const validateUser = ({ name, email, phone }) => {
+  const missingFields = []
+
+  if (!name) missingFields.push('Name')
+  if (!email) missingFields.push('Email')
+  if (!phone) missingFields.push('Phone')
+
+  if (missingFields.length > 0) {
+    const message = `${missingFields.join(', ')}: required`
+    return [201, { message }]
+  }
+
+  return null
+}
 
 export default mock

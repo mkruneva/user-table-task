@@ -27,10 +27,6 @@ Alternatively for optimized build run
 npm run build
 ```
 
-```bash
-npm run start
-```
-
 To run tests
 
 ```bash

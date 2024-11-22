@@ -1,5 +1,4 @@
 import React, { useState, useEffect, createContext, useContext } from 'react'
-import { useDebounce } from 'use-debounce'
 
 import { type User } from '../users/user-types'
 import { fetchUsers } from '../api/userService'

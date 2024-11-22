@@ -1,21 +1,20 @@
 import { useEffect, useState } from 'react'
 import { UsersPage } from './users/users-page'
 import { CreateUserPage } from './users/create/create-user-page'
+import { UserProvider } from './users/user-context'
 
 function App() {
   const isServer = typeof window === 'undefined'
   const [route, setRoute] = useState(isServer ? '/' : window.location.pathname)
 
   useEffect(() => {
-    if (typeof window === 'undefined') return
+    if (isServer) return
 
     const handlePopState = () => {
       setRoute(window.location.pathname)
     }
     window.addEventListener('popstate', handlePopState)
-
     setRoute(window.location.pathname)
-
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
@@ -37,7 +36,7 @@ function App() {
     }
   }
 
-  return <div>{renderRoute()}</div>
+  return <UserProvider>{renderRoute()}</UserProvider>
 }
 
 export default App

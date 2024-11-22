@@ -49,8 +49,8 @@
   &__photo-preview {
     max-width: 100%;
     height: auto;
-    max-height: 12rem;
-    border-radius: 0.5rem;
+    max-height: 15rem;
+    border-radius: var(--md-border-radius);
     margin: 0 auto;
   }
 }

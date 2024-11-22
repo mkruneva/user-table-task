@@ -41,8 +41,6 @@ npm run test
 
 ## Table Component Documentation
 
-# Table Component Documentation
-
 ## Overview
 
 The `Table` component provides a flexible and customizable table layout for displaying data sets in React applications. It supports custom cell rendering, loading states, and error handling. The component is ideal for displaying any tabular data, particularly when each cell or row might require specific formatting or behavior.
@@ -79,7 +77,7 @@ Defines a minimal structure for data items, requiring an `id` that can be either
 
 ### Pagination
 
-The table includes simple pagination 
+The table includes simple front end pagination 
 
 ## Usage Examples
 
@@ -100,7 +98,7 @@ Render a simple table without custom cell rendering:
 
 ### Advanced Example
 
-Render a table with custom cell rendering that highlights the name in bold:
+Render a table with custom cell rendering that highlights the name in bold, and sets different background row color
 
 ```jsx
 <Table
@@ -126,6 +124,12 @@ Render a table with custom cell rendering that highlights the name in bold:
   )}
 />
 ```
+
+## Ideas for Further improvements
+
+- table pagination: infinite scroll with data fetching using Intersection Observer API
+- create user form: improved form validation, custom messages displayed to user, ui improvements like red borders etc.
+- unit tests - covering the important functionality (currently Table component test)
 
 
 

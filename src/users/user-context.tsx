@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  createContext,
-  useContext,
-} from 'react'
+import React, { useState, useEffect, createContext, useContext } from 'react'
 import { useDebounce } from 'use-debounce'
 
 import { type User } from '../users/user-types'
@@ -13,9 +7,7 @@ import { fetchUsers } from '../api/userService'
 type UserContextType = {
   users: User[]
   setUsers: (users: User[]) => void
-  searchTerm: string
-  setSearchTerm: (term: string) => void
-  clearSearch: () => void
+  getUsers: (searchTerm?: string) => Promise<void>
   isLoading: boolean
   isErrored: boolean
 }
@@ -26,36 +18,29 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [users, setUsers] = useState<User[]>([])
-  const [searchTerm, setSearchTerm] = useState('')
   const [isLoading, setIsLoading] = useState(true)
   const [isErrored, setIsErrored] = useState(false)
-  const [debouncedSearch] = useDebounce(searchTerm, 500)
+
+  const getUsers = async (searchTerm: string = '') => {
+    try {
+      const data = await fetchUsers(searchTerm)
+      setUsers(data)
+      setIsLoading(false)
+    } catch (error) {
+      console.error('Failed to load users:', error)
+      setIsLoading(false)
+      setIsErrored(true)
+    }
+  }
 
   useEffect(() => {
-    const filterUsers = async () => {
-      try {
-        const data = await fetchUsers(searchTerm)
-        setUsers(data)
-        setIsLoading(false)
-      } catch (error) {
-        console.error('Failed to load users:', error)
-        setIsLoading(false)
-        setIsErrored(true)
-      }
-    }
-    filterUsers()
-  }, [debouncedSearch])
-
-  const clearSearch = useCallback(() => {
-    setSearchTerm('')
+    getUsers()
   }, [])
 
   const contextValue: UserContextType = {
     users,
     setUsers,
-    searchTerm,
-    setSearchTerm,
-    clearSearch,
+    getUsers,
     isLoading,
     isErrored,
   }

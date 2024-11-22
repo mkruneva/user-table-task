@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, useMemo } from 'react'
 import { SkeletonTable } from './skeleton-table'
 import { usePagination } from './pagination/use-pagination'
 import { Pagination } from './pagination'
@@ -42,6 +42,8 @@ export interface TableProps<T, K extends keyof T> {
   isErrored?: boolean
   /** Optional custom row render function */
   renderRow?: (item: T, index: number, children: ReactNode) => ReactNode
+  /** Optional number of items per page for paginated table */
+  itemsPerPage?: number
 }
 
 /** Base interface representing a required structure for table row data items. */
@@ -56,11 +58,12 @@ export interface BaseTableItem {
  * @template K - Keys from the data type used to access item properties.
  */
 export const Table = <T extends BaseTableItem, K extends keyof T>({
-  data,
+  data = [],
   columns,
   isLoading,
   isErrored,
   renderRow,
+  itemsPerPage = 10,
 }: TableProps<T, K>) => {
   const {
     currentPage,
@@ -69,8 +72,14 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
     handlePageChange,
   } = usePagination({
     totalItems: data.length,
-    itemsPerPage: 10,
+    itemsPerPage,
   })
+
+  const paginationLabel = useMemo(() => {
+    const firstItemIndex = 1 + itemsPerPage * (currentPage - 1)
+    const lastItemIndex = Math.min(data.length, currentPage * itemsPerPage)
+    return `${firstItemIndex}-${lastItemIndex} of ${data.length}`
+  }, [currentPage, itemsPerPage, data.length])
 
   const currentData = data.slice(startIndex, endIndex)
 
@@ -122,6 +131,7 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
+        paginationLabel={paginationLabel}
       />
     </div>
   )

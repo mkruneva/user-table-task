@@ -1,13 +1,32 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState, useRef } from 'react'
 import { useUserContext } from '../../user-context'
 
 import { SearchIcon } from '../../../assets/svg/search-icon'
 import { XIcon } from '../../../assets/svg/x-icon'
 
 import './users-search.scss'
+import { useDebounce } from 'use-debounce'
 
 export const UserSearch = () => {
-  const { searchTerm, setSearchTerm, clearSearch } = useUserContext()
+  const { getUsers } = useUserContext()
+  const [searchTerm, setSearchTerm] = useState('')
+  const debounceDelay = searchTerm.trim() === '' ? 0 : 500
+  const [debouncedSearchTerm] = useDebounce(searchTerm.trim(), debounceDelay)
+
+  const mounted = React.useRef(false)
+
+  const clearSearch = useCallback(() => {
+    setSearchTerm('')
+  }, [])
+
+  useEffect(() => {
+    // Do not call use Effect on initial mount
+    if (mounted.current) {
+      getUsers(debouncedSearchTerm)
+    } else {
+      mounted.current = true
+    }
+  }, [debouncedSearchTerm])
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value)

@@ -20,7 +20,7 @@ const Input = ({
   required?: boolean
   value: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
-  pattern?: RegExp
+  pattern?: string
 }) => (
   <div className="create-user-form__input-container">
     <label htmlFor={id} className="create-user-form__label">
@@ -33,7 +33,7 @@ const Input = ({
       className="create-user-form__input"
       value={value}
       onChange={onChange}
-      pattern={pattern ? pattern.source : undefined}
+      pattern={pattern}
     />
   </div>
 )
@@ -122,10 +122,11 @@ export const CreateUserForm = ({
           id="phone"
           type="tel"
           required
-          pattern={/^[0-9()-]+$/}
+          pattern="[0-9+\(\)-.]+"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
         />
+
         <div className="create-user-form__input-container">
           <label htmlFor="photo" className="create-user-form__label">
             Upload Photo

@@ -1,3 +1,5 @@
+"use client";
+
 import React, {
   useState,
   useEffect,
@@ -7,20 +9,8 @@ import React, {
 } from "react";
 import { useDebounce } from "use-debounce";
 
-// TODO:
-// import { type User } from '@/app/users/user-types'
+import { type User } from "../users/user-types";
 import { fetchUsers } from "../api/userService";
-
-const FETCH_USERS_URL =
-  "https://dummyjson.com/users?delay=1000&select=firstName,lastName,email,image,phone";
-
-export type User = {
-  id: number;
-  name: string;
-  image: string;
-  email: string;
-  phone: string;
-};
 
 type UserContextType = {
   users: User[];
@@ -40,7 +30,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isErrored, setIsErrored] = useState(false);
-  const [debouncedFilter] = useDebounce(searchTerm, 300);
+  const [debouncedSearch] = useDebounce(searchTerm, 500);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -61,8 +51,9 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     return () => {
       controller.abort();
     };
+    // only fetch on debouncedSearch
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedFilter]);
+  }, [debouncedSearch]);
 
   const clearSearch = useCallback(() => {
     setSearchTerm("");

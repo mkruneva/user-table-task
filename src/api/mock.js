@@ -4,14 +4,11 @@ import { users } from "./userData";
 
 const mock = new MockAdapter(axiosInstance, { delayResponse: 500 });
 
-mock.onGet("/users").reply(200, {
-  users,
-});
-
-// Mock GET /users with query parameters for filtering
-mock.onGet(/\/users\?.*/).reply((config) => {
+mock.onGet("/users").reply((config) => {
   const params = new URLSearchParams(config.params);
   const nameFilter = params.get("name");
+
+  if (!nameFilter) return [200, { users }];
 
   const filteredUsers = users.filter((user) =>
     user.name.toLowerCase().includes(nameFilter.toLowerCase())

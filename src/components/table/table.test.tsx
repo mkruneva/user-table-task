@@ -1,16 +1,19 @@
-import { screen, render } from "@testing-library/react";
+import "@testing-library/jest-dom";
 
-import { Table, type TableColumn } from "./table";
-import { type User } from "../contexts/user-context";
+import { screen, render } from "@testing-library/react";
+import { type User } from "../../users/user-types";
+import { Table, type TableColumn } from "./";
+
+const mockUser = {
+  id: 1,
+  name: "Emily Johnson",
+  email: "emily.johnson@x.dummyjson.com",
+  image: "https://dummyjson.com/icon/emilys/128",
+  phone: "+81 965-431-3024",
+};
 
 const mockData: User[] = [
-  {
-    id: 1,
-    name: "Emily Johnson",
-    email: "emily.johnson@x.dummyjson.com",
-    image: "https://dummyjson.com/icon/emilys/128",
-    phone: "+81 965-431-3024",
-  },
+  mockUser,
   {
     id: 2,
     name: "Michael Williams",
@@ -39,7 +42,7 @@ const mockColumns: TableColumn<User, keyof User>[] = [
   {
     label: "Image",
     accessor: "image",
-    renderCellContent: ({ image, name }: User) => {
+    renderCellContent: ({ rowData: { image, name } }) => {
       return <img className="avatar" src={image} alt={`${name}'s avatar`} />;
     },
   },
@@ -66,11 +69,21 @@ describe("Table", () => {
     const nameColumn = screen.getByText(/name/i);
     expect(nameColumn).toBeInTheDocument();
 
-    const imageColumn = screen.getByText(/image/i);
+    const imageColumn = screen.getByText(/email/i);
     expect(imageColumn).toBeInTheDocument();
   });
 
-  // TODO: add img test with scr and alt
+  it("should render custom image column", () => {
+    render(<Table data={[mockUser]} columns={mockColumns} />);
+
+    const image = screen.getByAltText(/Emily Johnson's avatar/i);
+
+    expect(image.tagName).toBe("IMG");
+    expect(image).toBeInTheDocument();
+
+    const imageColumn = screen.getByText(/image/i);
+    expect(imageColumn).toBeInTheDocument();
+  });
 
   it("should match snapshot", () => {
     const { container } = render(

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Users } from "./components/users";
+import { UsersPage } from "./users/users-page";
+import { CreateUserPage } from "./users/create/create-user-page";
 
 function App() {
   const isServer = typeof window === "undefined";
@@ -26,14 +27,13 @@ function App() {
   const renderRoute = () => {
     switch (route) {
       case "/":
-        return <Users navigate={navigate} />;
+        return <UsersPage navigate={navigate} />;
       case "/users":
-        return <Users navigate={navigate} />;
+        return <UsersPage navigate={navigate} />;
       case "/users/create":
-        return <div>create user</div>;
-      //   return <CreateUser navigate={navigate} />;
+        return <CreateUserPage navigate={navigate} />;
       default:
-        return <Users navigate={navigate} />;
+        return <UsersPage navigate={navigate} />;
     }
   };
 

@@ -1,5 +1,5 @@
-import "./skeleton-table.scss";
-import "./table.scss";
+import './table.scss'
+import './skeleton-table.scss'
 
 export const SkeletonTable = ({ rows = 10, columns = 4 }) => {
   return (
@@ -22,8 +22,8 @@ export const SkeletonTable = ({ rows = 10, columns = 4 }) => {
                   <div
                     className={`skeleton-block ${
                       colIndex === 0
-                        ? "skeleton-block--circle avatar"
-                        : "skeleton-block--text"
+                        ? 'skeleton-block--circle avatar'
+                        : 'skeleton-block--text'
                     }`}
                   ></div>
                 </td>
@@ -33,5 +33,5 @@ export const SkeletonTable = ({ rows = 10, columns = 4 }) => {
         </tbody>
       </table>
     </div>
-  );
-};
+  )
+}

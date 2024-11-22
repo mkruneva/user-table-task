@@ -1,0 +1,87 @@
+.create-user-form-container {
+  background-color: var(--white);
+  max-width: 28rem;
+  margin: 1rem 0;
+}
+
+.create-user-form {
+  margin-bottom: 1rem;
+  width: 24rem;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
+  &__label {
+    display: block;
+    color: var(--gray-500);
+    margin-bottom: 0.25rem;
+  }
+
+  &__photo-input {
+    width: 100%;
+    color: var(--gray-300);
+    margin-bottom: 1rem;
+
+    &::file-selector-button {
+      margin-right: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: var(--md-border-radius);
+      border: 0;
+      font-size: 0.875rem;
+      background-color: var(--gray-100);
+      color: var(--green-600);
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #dbeafe;
+      }
+    }
+  }
+
+  &__photo-preview-container {
+    margin-bottom: 1rem;
+  }
+
+  &__photo-preview {
+    max-width: 100%;
+    height: auto;
+    max-height: 12rem;
+    border-radius: 0.5rem;
+    margin: 0 auto;
+  }
+}
+
+.create-user-button {
+  width: 100%;
+  background-color: var(--green-600);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border-radius: var(--md-border-radius);
+  transition: background-color 0.2s ease;
+  font-size: 1rem;
+
+  &:hover {
+    background-color: var(--green-500);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--green-500);
+  }
+}
+
+.user-form-info {
+  width: 100%;
+  margin: 1rem 0;
+  padding: 2rem;
+  border: 1px solid var(--gray-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--md-border-radius);
+}
+
+.error {
+  color: var(--red-500);
+}

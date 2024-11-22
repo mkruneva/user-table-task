@@ -40,6 +40,7 @@ exports[`Table should match snapshot 1`] = `
         class="table__body"
       >
         <tr
+          aria-rowindex="0"
           class="table__row"
         >
           <td
@@ -77,6 +78,7 @@ exports[`Table should match snapshot 1`] = `
           </td>
         </tr>
         <tr
+          aria-rowindex="1"
           class="table__row"
         >
           <td
@@ -114,6 +116,7 @@ exports[`Table should match snapshot 1`] = `
           </td>
         </tr>
         <tr
+          aria-rowindex="2"
           class="table__row"
         >
           <td
@@ -151,6 +154,7 @@ exports[`Table should match snapshot 1`] = `
           </td>
         </tr>
         <tr
+          aria-rowindex="3"
           class="table__row"
         >
           <td

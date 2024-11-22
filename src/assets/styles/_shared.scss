@@ -1,0 +1,20 @@
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--gray-200);
+  margin: 0 auto;
+}
+
+input {
+  padding: 0.5rem;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--md-border-radius);
+  font-size: 0.9rem;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--green-500);
+  }
+}

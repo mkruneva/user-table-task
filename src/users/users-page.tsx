@@ -1,19 +1,20 @@
-import { UsersSearch } from "./users-search";
-import { UserTable } from "./user-table";
-import { UserProvider } from "../contexts/user-context";
+import { UserProvider } from "./user-context";
+import { UserTable } from "./components/user-table";
+import { UserSearch } from "./components/user-search";
 
-import "./users.scss";
+import "./users-page.scss";
+
 interface UsersProps {
   navigate: (path: string) => void;
 }
 
-export const Users = ({ navigate }: UsersProps) => {
+export const UsersPage = ({ navigate }: UsersProps) => {
   return (
     <div className="users-page">
       <h1>Users Table</h1>
       <UserProvider>
         <div className="users-page-header">
-          {/* <UserSearch /> */}
+          <UserSearch />
           <button
             className="button-link"
             onClick={() => navigate("/users/create")}

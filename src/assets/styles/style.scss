@@ -1,4 +1,3 @@
-@import '_global';
-@import '_values'
-
-
+@use "_global" as *;
+@use "_values" as *;
+@use "_shared" as *;

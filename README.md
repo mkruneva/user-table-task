@@ -1,46 +1,131 @@
-# Getting Started with Create React App
+This is a project illustrating use of a custom table component.
+It is using
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- typescript
+- react
+- react-create-app
+- axios
+- axios-mock-adapter
+- scss
+- testing-library/react
+- use-debounce
+- prettier, eslint
 
-## Available Scripts
+## Getting Started
 
-In the project directory, you can run:
+First, run the development server:
 
-### `npm start`
+```bash
+npm start
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Alternatively for optimized build run
 
-### `npm test`
+```bash
+npm run build
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm run start
+```
 
-### `npm run build`
+To run tests
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm run test
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Table Component Documentation
 
-### `npm run eject`
+# Table Component Documentation
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Overview
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The `Table` component provides a flexible and customizable table layout for displaying data sets in React applications. It supports custom cell rendering, loading states, and error handling. The component is ideal for displaying any tabular data, particularly when each cell or row might require specific formatting or behavior.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## API Reference
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Props
 
-## Learn More
+- **data (`T[]`)**: Array of data items to be displayed. Each item must extend from `BaseTableItem`.
+- **columns (`TableColumn<T, K>[]`)**: Configuration for table columns. Each column can define a custom renderer.
+- **isLoading (`boolean`)** _(optional)_: Shows a loading indicator if true. Default is `false`.
+- **isErrored (`boolean`)** _(optional)_: Displays an error message if true. Default is `false`.
+- **renderRow (`item: T, index: number, children: ReactNode) => ReactNode`)** _(optional)_: Custom row render function.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Interfaces
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### `TableProps<T, K extends keyof T>`
+
+Describes the props accepted by the `Table` component, including data, columns, and optional flags for loading and error states.
+
+#### `RenderedCell<T>`
+
+Provides the data and row index for a cell, facilitating custom rendering logic based on the row index.
+
+#### `TableColumn<T, K extends keyof T>`
+
+Defines a single column's configuration in the table, including label, accessor for data extraction, and an optional custom cell renderer.
+
+### Types
+
+#### `BaseTableItem`
+
+Defines a minimal structure for data items, requiring an `id` that can be either a number or a string.
+
+### Pagination
+
+The table includes simple pagination 
+
+## Usage Examples
+
+### Basic Example
+
+Render a simple table without custom cell rendering:
+
+```jsx
+<Table
+  data={userData}
+  columns={[
+    { label: 'ID', accessor: 'id' },
+    { label: 'Name', accessor: 'name' },
+    { label: 'Email', accessor: 'email' },
+  ]}
+/>
+```
+
+### Advanced Example
+
+Render a table with custom cell rendering that highlights the name in bold:
+
+```jsx
+<Table
+  data={userData}
+  columns={[
+    { label: 'ID', accessor: 'id' },
+    {
+      label: 'Name',
+      accessor: 'name',
+      renderCellContent: ({ rowData }) => <strong>{rowData.name}</strong>,
+    },
+    { label: 'Email', accessor: 'email' },
+  ]}
+  renderRow={(row, index, children) => (
+    <tr
+      key={row.id}
+      className="table__row"
+      style={{ backgroundColor: 'rgb(253, 186, 116)' }}
+      aria-rowindex={index + 1}
+    >
+      {children}
+    </tr>
+  )}
+/>
+```
+
+
+

@@ -3,17 +3,26 @@ import { UserTable } from "./user-table";
 import { UserProvider } from "../contexts/user-context";
 
 import "./users.scss";
+interface UsersProps {
+  navigate: (path: string) => void;
+}
 
-export const Users = () => {
+export const Users = ({ navigate }: UsersProps) => {
   return (
-    <UserProvider>
-      <div className="users-container">
-        <h1>Users Table</h1>
-        <UsersSearch />
+    <div className="users-page">
+      <h1>Users Table</h1>
+      <UserProvider>
+        <div className="users-page-header">
+          {/* <UserSearch /> */}
+          <button
+            className="button-link"
+            onClick={() => navigate("/users/create")}
+          >
+            Create user
+          </button>
+        </div>
         <UserTable />
-      </div>
-    </UserProvider>
+      </UserProvider>
+    </div>
   );
 };
-
-// TODO: ? use react server component ?

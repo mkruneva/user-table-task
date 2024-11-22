@@ -15,11 +15,11 @@ const USERS_TABLE_COLUMNS: TableColumn<User, keyof User>[] = [
 ];
 
 export const UserTable = () => {
-  const { filteredUsers, isErrored, isLoading } = useUserContext();
+  const { users, isErrored, isLoading } = useUserContext();
 
   return (
     <Table
-      data={filteredUsers}
+      data={users}
       columns={USERS_TABLE_COLUMNS}
       isLoading={isLoading}
       isErrored={isErrored}

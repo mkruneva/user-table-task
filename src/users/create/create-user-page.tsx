@@ -21,9 +21,9 @@ export const CreateUserPage = ({ navigate }: CreateUsersProps) => {
 
   return (
     <div className="users-page">
-      <button className="back-button" onClick={() => navigate('/users')}>
+      <button className="back-button" onClick={() => navigate('/')}>
         <BackArrowIcon />
-        Back
+        Users Table
       </button>
       <h2>Create New User</h2>
       <CreateUserForm onCreate={handleUserCreate} />

@@ -7,10 +7,12 @@ import { XIcon } from '../../../assets/svg/x-icon'
 import './users-search.scss'
 import { useDebounce } from 'use-debounce'
 
+const DEBOUNCE_DELAY = 700
+
 export const UserSearch = () => {
   const { getUsers } = useUserContext()
   const [searchTerm, setSearchTerm] = useState('')
-  const debounceDelay = searchTerm.trim() === '' ? 0 : 500
+  const debounceDelay = searchTerm.trim() === '' ? 0 : DEBOUNCE_DELAY
   const [debouncedSearchTerm] = useDebounce(searchTerm.trim(), debounceDelay)
 
   const mounted = useRef(false)

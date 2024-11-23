@@ -24,8 +24,10 @@ function App() {
   }, [])
 
   const navigate = (path: string) => {
-    window.location.hash = path
-    setRoute(path)
+    if (window.location.hash.slice(1) !== path) {
+      window.location.hash = path
+      setRoute(path)
+    }
   }
 
   const renderRoute = () => {
@@ -33,10 +35,10 @@ function App() {
       case '/':
       case '/users':
         return <UsersPage navigate={navigate} />
-      case '/users/create':
+      case '/user-create':
         return <CreateUserPage navigate={navigate} />
       default:
-        return <UsersPage navigate={navigate} />
+        return <div>Not found</div>
     }
   }
 

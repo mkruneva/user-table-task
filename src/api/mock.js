@@ -18,12 +18,19 @@ mock.onGet('/api/users').reply((config) => {
 })
 
 mock.onPost('/api/users').reply((config) => {
-  const newUser = JSON.parse(config.data)
-  const validationResponse = validateUser(newUser)
+  const formData = new URLSearchParams(config.data)
 
-  if (validationResponse) {
-    return validationResponse
+  const newUser = {
+    name: formData.get('name'),
+    email: formData.get('email'),
+    phone: formData.get('phone'),
+    image: formData.get('image'),
   }
+
+  const validationResponse = validateUser(newUser)
+  if (validationResponse) return validationResponse
+
+  // Object file to be handled
 
   newUser.id = users.length + 1
   users.unshift(newUser)

@@ -15,7 +15,7 @@ export const UsersPage = ({ navigate }: UsersProps) => {
         <UserSearch />
         <button
           className="button-link"
-          onClick={() => navigate('/users/create')}
+          onClick={() => navigate('/user-create')}
         >
           Create user
         </button>

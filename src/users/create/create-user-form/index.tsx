@@ -60,50 +60,60 @@ export const CreateUserForm = ({
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
-  const [photoPreview, setPhotoPreview] = useState<string | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  const [image, setImage] = useState<File | null>(null)
+  const [imagePreview, setImagePreview] = useState<string>('')
+  const [formSubmitError, setFormSubmitError] = useState<string | null>(null)
 
   const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0]
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        setPhotoPreview(reader.result as string)
+    if (e.target.files?.[0]) {
+      const selectedImage = e.target.files[0]
+
+      const isValidImage = validateImageUpload(selectedImage.type)
+      if (!isValidImage) {
+        alert('The uploaded image should be valid image format: jpeg, png')
+        setImage(null)
+        setImagePreview('')
+        return
       }
-      reader.readAsDataURL(file)
+
+      setImage(selectedImage)
+      const previewURL = URL.createObjectURL(selectedImage)
+      setImagePreview(previewURL)
     }
   }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    const formData = new FormData()
+    formData.append('name', name)
+    formData.append('email', email)
+    formData.append('phone', phone)
+    if (image) {
+      formData.append('image', image)
+    }
     try {
-      const updatedUsers: User[] = await createUser({
-        name,
-        email,
-        phone,
-        image: photoPreview || undefined,
-      })
+      const updatedUsers: User[] = await createUser(formData)
       if (onCreate) {
         onCreate(updatedUsers)
       }
     } catch (error) {
-      console.error('Failed to load users:', error)
+      console.error('Failed to create user:', error)
       if (isAxiosError(error) && error.response) {
-        setError(
+        setFormSubmitError(
           `Error creating user: ${error.response.status} - ${error.response.statusText}`
         )
       } else {
-        setError('An unexpected error occurred.')
+        setFormSubmitError('An unexpected error occurred.')
       }
     }
   }
 
   return (
     <div className="create-user-form-container">
-      {!!error && (
+      {!!formSubmitError && (
         <div className="create-user-form">
           <div className="user-form-info error">
-            <h3>{error}</h3>
+            <span>{formSubmitError}</span>
           </div>
         </div>
       )}
@@ -145,10 +155,10 @@ export const CreateUserForm = ({
             className="create-user-form__photo-input"
           />
         </div>
-        {photoPreview && (
+        {imagePreview && (
           <div className="create-user-form__photo-preview-container">
             <img
-              src={photoPreview}
+              src={imagePreview}
               alt="Preview"
               className="create-user-form__photo-preview"
             />
@@ -158,4 +168,14 @@ export const CreateUserForm = ({
       </form>
     </div>
   )
+}
+
+const validateImageUpload = (imageType: string): boolean => {
+  const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png']
+
+  if (!allowedTypes.includes(imageType)) {
+    return false
+  }
+
+  return true
 }

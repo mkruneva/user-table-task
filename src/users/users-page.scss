@@ -5,7 +5,7 @@
   margin-top: 1rem;
   width: fit-content;
 
-  @media (max-width: 768px) {
+  @media (width <= 768px) {
     width: 100%;
     max-width: 100%;
     padding: 0.5rem 1rem;
@@ -19,7 +19,7 @@
     margin-top: 1rem;
     gap: 01rem;
 
-    @media (max-width: 768px) {
+    @media (width <= 768px) {
       margin-top: 0.5rem;
       flex-direction: column-reverse;
       align-items: end;

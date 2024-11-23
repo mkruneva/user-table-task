@@ -3,7 +3,6 @@
   height: 1.25rem;
   border-radius: var(--md-border-radius);
   width: 80px;
-
   animation: fade 1.5s infinite ease-in-out;
 
   &--header {
@@ -29,6 +28,7 @@
   100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.5;
   }

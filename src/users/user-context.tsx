@@ -2,7 +2,7 @@ import React, { useState, useEffect, createContext, useContext } from 'react'
 
 import { type User } from '../users/user-types'
 import { fetchUsers } from '../api/userService'
-import axios from 'axios'
+import { isAxiosError } from 'axios'
 
 type UserContextType = {
   users: User[]
@@ -21,7 +21,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  const getUsers = async (searchTerm: string = '') => {
+  const getUsers = async (searchTerm = '') => {
     try {
       const data = await fetchUsers(searchTerm)
       setUsers(data)
@@ -29,7 +29,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     } catch (error) {
       console.error('Failed to load users:', error)
       setIsLoading(false)
-      if (axios.isAxiosError(error) && error.response) {
+      if (isAxiosError(error) && error.response) {
         setError(
           `Error: ${error.response.status} - ${error.response.statusText}`
         )

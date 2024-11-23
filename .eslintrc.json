@@ -4,8 +4,11 @@
     "es2021": true
   },
   "extends": [
-    "plugin:import/typescript",
-    "prettier"
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "plugin:prettier/recommended",
+    "plugin:import/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "overrides": [],
@@ -17,6 +20,8 @@
   "plugins": ["react", "prettier"],
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "@typescript-eslint/triple-slash-reference": "off"
+    "import/no-unresolved": "off",    
+    "@typescript-eslint/triple-slash-reference": "off",
+    "react/prop-types": "off"
   }
 }

@@ -13,7 +13,7 @@ export const UserSearch = () => {
   const debounceDelay = searchTerm.trim() === '' ? 0 : 500
   const [debouncedSearchTerm] = useDebounce(searchTerm.trim(), debounceDelay)
 
-  const mounted = React.useRef(false)
+  const mounted = useRef(false)
 
   const clearSearch = useCallback(() => {
     setSearchTerm('')

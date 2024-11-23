@@ -1,4 +1,4 @@
-import axios from 'axios'
+import { isAxiosError } from 'axios'
 import { useState, ChangeEvent, FormEvent } from 'react'
 
 import { createUser } from '../../../api/userService'
@@ -88,7 +88,7 @@ export const CreateUserForm = ({
       }
     } catch (error) {
       console.error('Failed to load users:', error)
-      if (axios.isAxiosError(error) && error.response) {
+      if (isAxiosError(error) && error.response) {
         setError(
           `Error creating user: ${error.response.status} - ${error.response.statusText}`
         )

@@ -1,7 +1,6 @@
 import { Table, type TableColumn } from '../../../components/table'
 import { type User } from '../../user-types'
 import { useUserContext } from '../../user-context'
-import { ReactNode } from 'react'
 
 const USERS_TABLE_COLUMNS: TableColumn<User, keyof User>[] = [
   {
@@ -25,20 +24,13 @@ const USERS_TABLE_COLUMNS: TableColumn<User, keyof User>[] = [
   { label: 'Phone', accessor: 'phone' },
 ]
 
-const renderRow = (row: User, index: number, children: ReactNode) => {
+const renderRow = (_row: User, index: number) => {
   const isEvenRow = index % 2 === 0
   const backgroundColor = isEvenRow ? 'var(--white)' : 'var(--gray-50)'
 
-  return (
-    <tr
-      key={row.id}
-      className="table__row"
-      style={{ backgroundColor }}
-      aria-rowindex={index + 1}
-    >
-      {children}
-    </tr>
-  )
+  return {
+    style: { backgroundColor },
+  }
 }
 
 export const UserTable = () => {

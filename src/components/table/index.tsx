@@ -40,8 +40,11 @@ export interface TableProps<T, K extends keyof T> {
   isLoading?: boolean
   /** Indicates if there has been an error during data fetching or processing. */
   error?: string | null
-  /** Optional custom row render function */
-  renderRow?: (item: T, index: number, children: ReactNode) => ReactNode
+  /** Optional custom row function returning row configuration object props  */
+  renderRow?: (
+    rowData: T,
+    index: number
+  ) => React.HTMLAttributes<HTMLTableRowElement>
   /** Optional number of items per page for paginated table */
   itemsPerPage?: number
 }
@@ -116,10 +119,14 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
               </td>
             ))
 
-            return renderRow ? (
-              renderRow(row, index, cells)
-            ) : (
-              <tr key={row.id} className="table__row" aria-rowindex={index + 1}>
+            const rowProps = {
+              className: 'table__row',
+              'aria-rowindex': index + 1,
+              ...(renderRow ? renderRow(row, index) : {}),
+            }
+
+            return (
+              <tr key={row.id} {...rowProps}>
                 {cells}
               </tr>
             )

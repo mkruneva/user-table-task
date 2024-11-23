@@ -81,7 +81,7 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
   const paginationLabel = useMemo(() => {
     const firstItemIndex = 1 + itemsPerPage * (currentPage - 1)
     const lastItemIndex = Math.min(data.length, currentPage * itemsPerPage)
-    return `${firstItemIndex}-${lastItemIndex} of ${data.length}`
+    return `${firstItemIndex}-${lastItemIndex} of ${data.length} items`
   }, [currentPage, itemsPerPage, data.length])
 
   const currentData = data.slice(startIndex, endIndex)

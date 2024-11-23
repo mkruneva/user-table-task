@@ -193,7 +193,7 @@ exports[`Table should match snapshot 1`] = `
       <span
         class="pagination__label"
       >
-        Page 1 of 1
+        1-4 of 4 items
       </span>
       <button
         class="pagination__button pagination__button-next"

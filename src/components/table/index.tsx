@@ -97,8 +97,11 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
       <table className="table">
         <thead className="table__header">
           <tr className="table__header-row">
-            {columns.map(({ accessor, label }) => (
-              <th key={accessor as string} className="table__header-cell">
+            {columns.map(({ accessor, label }, colIndex) => (
+              <th
+                key={`${String(accessor)}-${colIndex}`}
+                className="table__header-cell"
+              >
                 {label}
               </th>
             ))}
@@ -106,18 +109,20 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
         </thead>
         <tbody className="table__body">
           {currentData.map((row, index) => {
-            const cells = columns.map(({ accessor, renderCellContent }) => (
-              <td
-                key={String(accessor)}
-                className={`table__cell ${accessor as string}`}
-              >
-                {renderCellContent ? (
-                  renderCellContent({ rowData: row })
-                ) : (
-                  <span>{row[accessor] as string}</span>
-                )}
-              </td>
-            ))
+            const cells = columns.map(
+              ({ accessor, renderCellContent }, colIndex) => (
+                <td
+                  key={`${String(accessor)}-${colIndex}`}
+                  className={`table__cell ${accessor as string}`}
+                >
+                  {renderCellContent ? (
+                    renderCellContent({ rowData: row })
+                  ) : (
+                    <span>{row[accessor] as string}</span>
+                  )}
+                </td>
+              )
+            )
 
             const rowProps = {
               className: 'table__row',

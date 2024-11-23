@@ -48,7 +48,7 @@ The `Table` component provides a flexible and customizable table layout for disp
 - **data (`T[]`)**: Array of data items to be displayed. Each item must extend from `BaseTableItem`.
 - **columns (`TableColumn<T, K>[]`)**: Configuration for table columns. Each column can define a custom renderer.
 - **isLoading (`boolean`)** _(optional)_: Shows a loading indicator if true. Default is `false`.
-- **isErrored (`boolean`)** _(optional)_: Displays an error message if true. Default is `false`.
+- **error (`string | null`)** _(optional)_: Displays an error message. Default is `null`.
 - **renderRow (`item: T, index: number, children: ReactNode) => ReactNode`)** _(optional)_: Custom row render function.
 
 ### Interfaces

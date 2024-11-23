@@ -39,7 +39,7 @@ export interface TableProps<T, K extends keyof T> {
   /** Indicates if the table data is currently being loaded. */
   isLoading?: boolean
   /** Indicates if there has been an error during data fetching or processing. */
-  isErrored?: boolean
+  error?: string | null
   /** Optional custom row render function */
   renderRow?: (item: T, index: number, children: ReactNode) => ReactNode
   /** Optional number of items per page for paginated table */
@@ -61,7 +61,7 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
   data = [],
   columns,
   isLoading,
-  isErrored,
+  error,
   renderRow,
   itemsPerPage = 10,
 }: TableProps<T, K>) => {
@@ -85,8 +85,8 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
 
   if (isLoading) return <SkeletonTable rows={10} columns={columns.length} />
 
-  if (isErrored) {
-    return <div className="table-info error">Something went wrong</div>
+  if (error) {
+    return <div className="table-info error">{error}</div>
   }
 
   return (

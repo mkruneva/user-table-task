@@ -4,7 +4,7 @@ import { users } from './userData'
 
 const mock = new MockAdapter(axiosInstance, { delayResponse: 500 })
 
-mock.onGet('/users').reply((config) => {
+mock.onGet('/api/users').reply((config) => {
   const params = new URLSearchParams(config.params)
   const nameFilter = params.get('name')
 
@@ -17,7 +17,7 @@ mock.onGet('/users').reply((config) => {
   return [200, { users: filteredUsers }]
 })
 
-mock.onPost('/users').reply((config) => {
+mock.onPost('/api/users').reply((config) => {
   const newUser = JSON.parse(config.data)
   const validationResponse = validateUser(newUser)
 

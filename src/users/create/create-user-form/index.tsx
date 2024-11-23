@@ -1,9 +1,9 @@
+import axios from 'axios'
 import { useState, ChangeEvent, FormEvent } from 'react'
 
 import { createUser } from '../../../api/userService'
-
-import './create-user-form.scss'
 import { User } from '../../user-types'
+import './create-user-form.scss'
 
 const Input = ({
   label,
@@ -61,7 +61,7 @@ export const CreateUserForm = ({
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [photoPreview, setPhotoPreview] = useState<string | null>(null)
-  const [isErrored, setIsErrored] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -76,7 +76,6 @@ export const CreateUserForm = ({
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    setIsErrored(false)
     try {
       const updatedUsers: User[] = await createUser({
         name,
@@ -88,16 +87,23 @@ export const CreateUserForm = ({
         onCreate(updatedUsers)
       }
     } catch (error) {
-      setIsErrored(true)
+      console.error('Failed to load users:', error)
+      if (axios.isAxiosError(error) && error.response) {
+        setError(
+          `Error creating user: ${error.response.status} - ${error.response.statusText}`
+        )
+      } else {
+        setError('An unexpected error occurred.')
+      }
     }
   }
 
   return (
     <div className="create-user-form-container">
-      {isErrored && (
+      {!!error && (
         <div className="create-user-form">
           <div className="user-form-info error">
-            <h3>Something went wrong creating the user</h3>
+            <h3>{error}</h3>
           </div>
         </div>
       )}

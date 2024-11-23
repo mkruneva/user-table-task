@@ -42,14 +42,14 @@ const renderRow = (row: User, index: number, children: ReactNode) => {
 }
 
 export const UserTable = () => {
-  const { users, isErrored, isLoading } = useUserContext()
+  const { users, error, isLoading } = useUserContext()
 
   return (
     <Table
       data={users}
       columns={USERS_TABLE_COLUMNS}
       isLoading={isLoading}
-      isErrored={isErrored}
+      error={error}
       renderRow={renderRow}
     />
   )

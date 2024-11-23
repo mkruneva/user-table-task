@@ -2,13 +2,14 @@ import React, { useState, useEffect, createContext, useContext } from 'react'
 
 import { type User } from '../users/user-types'
 import { fetchUsers } from '../api/userService'
+import axios from 'axios'
 
 type UserContextType = {
   users: User[]
   setUsers: (users: User[]) => void
   getUsers: (searchTerm?: string) => Promise<void>
   isLoading: boolean
-  isErrored: boolean
+  error: string | null
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
@@ -18,7 +19,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [users, setUsers] = useState<User[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const [isErrored, setIsErrored] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const getUsers = async (searchTerm: string = '') => {
     try {
@@ -28,7 +29,13 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     } catch (error) {
       console.error('Failed to load users:', error)
       setIsLoading(false)
-      setIsErrored(true)
+      if (axios.isAxiosError(error) && error.response) {
+        setError(
+          `Error: ${error.response.status} - ${error.response.statusText}`
+        )
+      } else {
+        setError('An unexpected error occurred.')
+      }
     }
   }
 
@@ -41,7 +48,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     setUsers,
     getUsers,
     isLoading,
-    isErrored,
+    error,
   }
 
   return (

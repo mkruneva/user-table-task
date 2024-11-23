@@ -1,4 +1,10 @@
-import React, { useState, useEffect, createContext, useContext } from 'react'
+import {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  PropsWithChildren,
+} from 'react'
 
 import { type User } from '../users/user-types'
 import { fetchUsers } from '../api/userService'
@@ -14,9 +20,7 @@ type UserContextType = {
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
 
-export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const UserProvider = ({ children }: PropsWithChildren) => {
   const [users, setUsers] = useState<User[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react'
-import { useUserContext } from '../../user-context'
+import { useUserContext } from '../../../contexts/user-context'
 
 import { SearchIcon } from '../../../assets/svg/search-icon'
 import { XIcon } from '../../../assets/svg/x-icon'

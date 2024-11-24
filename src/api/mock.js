@@ -18,7 +18,7 @@ mock.onGet('/api/users').reply((config) => {
 })
 
 mock.onPost('/api/users').reply((config) => {
-  const formData = new URLSearchParams(config.data)
+  const formData = config.data
 
   const newUser = {
     name: formData.get('name'),
@@ -30,7 +30,10 @@ mock.onPost('/api/users').reply((config) => {
   const validationResponse = validateUser(newUser)
   if (validationResponse) return validationResponse
 
-  // Object file to be handled
+  // Handle image file
+  const reader = new FileReader()
+  reader.onloadend = () => (newUser.image = reader.result)
+  reader.readAsDataURL(newUser.image)
 
   newUser.id = users.length + 1
   users.unshift(newUser)

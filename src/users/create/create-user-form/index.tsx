@@ -65,21 +65,22 @@ export const CreateUserForm = ({
   const [formSubmitError, setFormSubmitError] = useState<string | null>(null)
 
   const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.[0]) {
-      const selectedImage = e.target.files[0]
+    const selectedImage = e.target.files?.[0]
+    if (!selectedImage) return
 
-      const isValidImage = validateImageUpload(selectedImage.type)
-      if (!isValidImage) {
-        alert('The uploaded image should be valid image format: jpeg, png')
-        setImage(null)
-        setImagePreview('')
-        return
-      }
-
-      setImage(selectedImage)
-      const previewURL = URL.createObjectURL(selectedImage)
-      setImagePreview(previewURL)
+    const isValidImage = validateImageUpload(selectedImage.type)
+    if (!isValidImage) {
+      alert('The uploaded image should be valid image format: jpeg, png')
+      e.target.value = ''
+      setImage(null)
+      setImagePreview('')
+      return
     }
+
+    setImage(selectedImage)
+
+    const previewURL = URL.createObjectURL(selectedImage)
+    setImagePreview(previewURL)
   }
 
   const handleSubmit = async (e: FormEvent) => {

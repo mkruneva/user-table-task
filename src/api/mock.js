@@ -31,9 +31,11 @@ mock.onPost('/api/users').reply((config) => {
   if (validationResponse) return validationResponse
 
   // Handle image file
-  const reader = new FileReader()
-  reader.onloadend = () => (newUser.image = reader.result)
-  reader.readAsDataURL(newUser.image)
+  if (newUser.image) {
+    const reader = new FileReader()
+    reader.onloadend = () => (newUser.image = reader.result)
+    reader.readAsDataURL(newUser.image)
+  }
 
   newUser.id = users.length + 1
   users.unshift(newUser)

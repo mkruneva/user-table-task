@@ -24,7 +24,8 @@ export const UserSearch = () => {
   useEffect(() => {
     // Do not call use Effect on initial mount
     if (mounted.current) {
-      getUsers(debouncedSearchTerm)
+      // Reset page count on new search
+      getUsers({ searchTerm: debouncedSearchTerm, pageToGet: 1 })
     } else {
       mounted.current = true
     }

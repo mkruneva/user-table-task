@@ -7,14 +7,35 @@ const mock = new MockAdapter(axiosInstance, { delayResponse: 500 })
 mock.onGet('/api/users').reply((config) => {
   const params = new URLSearchParams(config.params)
   const nameFilter = params.get('name')
+  const pageString = params.get('page')
+  const page = pageString ? Number(pageString) : 0
+  const pageSize = params.get('pageSize')
 
-  if (!nameFilter) return [200, { users }]
+  const totalNumUsers = users.length
+  const totalPages = Math.ceil(totalNumUsers / pageSize)
 
-  const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(nameFilter.toLowerCase())
-  )
+  if (Number(page) > totalPages) {
+    return [400, { message: 'Page number exceeds total pages.' }]
+  }
 
-  return [200, { users: filteredUsers }]
+  const getPaginatedUsers = (usersToPaginate) => {
+    const startIndex = (page - 1) * pageSize
+    const endIndex = startIndex + pageSize
+    return usersToPaginate.slice(startIndex, endIndex)
+  }
+
+  const getFilteredUsers = () => {
+    if (!nameFilter) return users
+
+    return users.filter((user) =>
+      user.name.toLowerCase().includes(nameFilter.toLowerCase())
+    )
+  }
+
+  const filteredUsers = getFilteredUsers()
+  const paginatedFilteredUsers = getPaginatedUsers(filteredUsers)
+
+  return [200, { users: paginatedFilteredUsers, totalNumUsers, page, pageSize }]
 })
 
 mock.onPost('/api/users').reply((config) => {

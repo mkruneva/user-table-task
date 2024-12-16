@@ -13,23 +13,39 @@ import { isAxiosError } from 'axios'
 type UserContextType = {
   users: User[]
   setUsers: (users: User[]) => void
-  getUsers: (searchTerm?: string) => Promise<void>
+  getUsers: (props: {
+    searchTerm?: string
+    pageToGet?: number
+  }) => Promise<void>
   isLoading: boolean
   error: string | null
+  totalNumUsers: number
+  currentPage: number
+  pageSize: number
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
 
 export const UserProvider = ({ children }: PropsWithChildren) => {
   const [users, setUsers] = useState<User[]>([])
+  const [totalNumUsers, setTotalNumUsers] = useState(0)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pageSize] = useState(10)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const getUsers = async (searchTerm = '') => {
+  // TODO: searchTem default
+  const getUsers = async ({ searchTerm = '', pageToGet = 1 }) => {
     setIsLoading(true)
     try {
-      const data = await fetchUsers(searchTerm)
-      setUsers(data)
+      const { users, totalNumUsers, page } = await fetchUsers({
+        searchTerm,
+        page: pageToGet,
+        pageSize,
+      })
+      setUsers(users)
+      setTotalNumUsers(totalNumUsers)
+      setCurrentPage(page)
       setIsLoading(false)
     } catch (error) {
       console.error('Failed to load users:', error)
@@ -45,13 +61,16 @@ export const UserProvider = ({ children }: PropsWithChildren) => {
   }
 
   useEffect(() => {
-    getUsers()
+    getUsers({ searchTerm: undefined, pageToGet: 1 })
   }, [])
 
   const contextValue: UserContextType = {
     users,
     setUsers,
     getUsers,
+    totalNumUsers,
+    currentPage,
+    pageSize,
     isLoading,
     error,
   }

@@ -1,6 +1,8 @@
 import { Table, type TableColumn } from '../../../components/table'
 import { type User } from '../../user-types'
 import { useUserContext } from '../../../contexts/user-context'
+import { Pagination } from '../../../components/table/pagination'
+import { useMemo } from 'react'
 
 const USERS_TABLE_COLUMNS: TableColumn<User, keyof User>[] = [
   {
@@ -34,15 +36,47 @@ const renderRow = (_row: User, index: number) => {
 }
 
 export const UserTable = () => {
-  const { users, error, isLoading } = useUserContext()
+  const {
+    users,
+    totalNumUsers,
+    currentPage,
+    pageSize,
+    getUsers,
+    isLoading,
+    error,
+  } = useUserContext()
+
+  console.log('currentPage', currentPage)
+  console.log('totalNumUsers', totalNumUsers)
+  console.log('pageSize', pageSize)
+
+  const paginationLabel = useMemo(() => {
+    const firstItemIndex = 1 + pageSize * (currentPage - 1)
+    const lastItemIndex = Math.min(totalNumUsers, currentPage * pageSize)
+    return `${firstItemIndex}-${lastItemIndex} of ${totalNumUsers} items`
+  }, [currentPage, pageSize, totalNumUsers])
+
+  const handlePageChange = (page: number) => {
+    // TODO: use the set searchTerm if exists in context provider
+    getUsers({ searchTerm: undefined, pageToGet: page })
+  }
 
   return (
-    <Table
-      data={users}
-      columns={USERS_TABLE_COLUMNS}
-      isLoading={isLoading}
-      error={error}
-      renderRow={renderRow}
-    />
+    <div className="table-wrapper">
+      <Table
+        data={users}
+        columns={USERS_TABLE_COLUMNS}
+        isLoading={isLoading}
+        error={error}
+        renderRow={renderRow}
+      />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={Math.ceil(totalNumUsers / pageSize)}
+        onPageChange={handlePageChange}
+        paginationLabel={paginationLabel}
+        isLoading={isLoading}
+      />
+    </div>
   )
 }

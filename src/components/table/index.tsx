@@ -1,7 +1,5 @@
-import { ReactNode, useMemo } from 'react'
+import { ReactNode } from 'react'
 import { SkeletonTable } from './skeleton-table'
-import { usePagination } from './pagination/use-pagination'
-import { Pagination } from './pagination'
 import './table.scss'
 
 /**
@@ -66,26 +64,7 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
   isLoading,
   error,
   renderRow,
-  itemsPerPage = 10,
 }: TableProps<T, K>) => {
-  const {
-    currentPage,
-    totalPages,
-    paginatedData: { startIndex, endIndex },
-    handlePageChange,
-  } = usePagination({
-    totalItems: data.length,
-    itemsPerPage,
-  })
-
-  const paginationLabel = useMemo(() => {
-    const firstItemIndex = 1 + itemsPerPage * (currentPage - 1)
-    const lastItemIndex = Math.min(data.length, currentPage * itemsPerPage)
-    return `${firstItemIndex}-${lastItemIndex} of ${data.length} items`
-  }, [currentPage, itemsPerPage, data.length])
-
-  const currentData = data.slice(startIndex, endIndex)
-
   if (isLoading) return <SkeletonTable rows={10} columns={columns.length} />
 
   if (error) {
@@ -108,7 +87,7 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
           </tr>
         </thead>
         <tbody className="table__body">
-          {currentData.map((row, index) => {
+          {data.map((row, index) => {
             const cells = columns.map(
               ({ accessor, renderCellContent }, colIndex) => (
                 <td
@@ -138,13 +117,7 @@ export const Table = <T extends BaseTableItem, K extends keyof T>({
           })}
         </tbody>
       </table>
-      {!currentData?.length && <div className="table-info">No users found</div>}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-        paginationLabel={paginationLabel}
-      />
+      {!data?.length && <div className="table-info">No users found</div>}
     </div>
   )
 }

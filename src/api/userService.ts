@@ -14,7 +14,11 @@ export const fetchUsers = async (searchTerm = '') => {
     })
 
     if (!response.ok) {
-      throw new Error('Failed to fetch users')
+      if (response.status) {
+        throw new Error(`${response.status}:  ${response.statusText}`)
+      } else {
+        throw new Error('Failed to fetch users')
+      }
     }
 
     const data = await response.json()
@@ -32,6 +36,14 @@ export const createUser = async (userFormData: FormData) => {
       method: 'POST',
       body: userFormData,
     })
+
+    if (!response.ok) {
+      if (response.status) {
+        throw new Error(`${response.status}:  ${response.statusText}`)
+      } else {
+        throw new Error('Failed to create user')
+      }
+    }
 
     const data = await response.json()
 

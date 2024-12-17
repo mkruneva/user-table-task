@@ -1,5 +1,3 @@
-import axiosInstance from './axiosInstance'
-
 const baseUrl = `http://localhost:3002`
 
 export const fetchUsers = async (searchTerm = '') => {
@@ -28,11 +26,18 @@ export const fetchUsers = async (searchTerm = '') => {
 }
 
 export const createUser = async (userFormData: FormData) => {
-  const response = await axiosInstance.post('/api/users', userFormData, {
-    headers: {
-      'Content-type': 'multipart/form-data',
-    },
-  })
+  try {
+    const url = `${baseUrl}/api/users`
+    const response = await fetch(url, {
+      method: 'POST',
+      body: userFormData,
+    })
 
-  return response.data.updatedUsers
+    const data = await response.json()
+
+    return data
+  } catch (error) {
+    console.log('createUser error:', error)
+    throw error
+  }
 }

@@ -8,7 +8,6 @@ import {
 
 import { type User } from '../users/user-types'
 import { fetchUsers } from '../api/userService'
-import { isAxiosError } from 'axios'
 
 type UserContextType = {
   users: User[]
@@ -34,10 +33,8 @@ export const UserProvider = ({ children }: PropsWithChildren) => {
     } catch (error) {
       console.error('Failed to load users:', error)
       setIsLoading(false)
-      if (isAxiosError(error) && error.response) {
-        setError(
-          `Error: ${error.response.status} - ${error.response.statusText}`
-        )
+      if ((error as Error)?.message) {
+        setError((error as Error)?.message)
       } else {
         setError('An unexpected error occurred.')
       }

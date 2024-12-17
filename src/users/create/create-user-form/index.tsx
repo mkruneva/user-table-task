@@ -1,4 +1,3 @@
-import { isAxiosError } from 'axios'
 import { useState, ChangeEvent, FormEvent } from 'react'
 
 import { createUser } from '../../../api/userService'
@@ -62,7 +61,7 @@ export const CreateUserForm = ({
   const [phone, setPhone] = useState('')
   const [image, setImage] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string>('')
-  const [formSubmitError, setFormSubmitError] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   const handlePhotoChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedImage = e.target.files?.[0]
@@ -99,22 +98,21 @@ export const CreateUserForm = ({
       }
     } catch (error) {
       console.error('Failed to create user:', error)
-      if (isAxiosError(error) && error.response) {
-        setFormSubmitError(
-          `Error creating user: ${error.response.status} - ${error.response.statusText}`
-        )
+
+      if ((error as Error)?.message) {
+        setError((error as Error)?.message)
       } else {
-        setFormSubmitError('An unexpected error occurred.')
+        setError('An unexpected error occurred.')
       }
     }
   }
 
   return (
     <div className="create-user-form-container">
-      {!!formSubmitError && (
+      {!!error && (
         <div className="create-user-form">
           <div className="user-form-info error">
-            <span>{formSubmitError}</span>
+            <span>{error}</span>
           </div>
         </div>
       )}

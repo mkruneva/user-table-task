@@ -4,12 +4,11 @@ It is using
 - typescript
 - react
 - react-create-app
-- axios
-- axios-mock-adapter
 - testing-library/react
 - use-debounce
 - scss
 - prettier, eslint
+- express server
 
 ## Getting Started
 
